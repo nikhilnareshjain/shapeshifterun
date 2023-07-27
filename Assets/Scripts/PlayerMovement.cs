@@ -22,12 +22,19 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] AudioSource jumpSound;
 
-    private Shape currentShape = Shape.Cube;
+    [SerializeField] GameObject CubeShape;
+    [SerializeField] GameObject SphereShape;
+    [SerializeField] GameObject CylinderShape;
+    [SerializeField] GameObject PyramidShape;
+
+    private Shape currentShape = Shape.Cylinder;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+
+        activateShape();
     }
 
     // Update is called once per frame
@@ -64,13 +71,21 @@ public class PlayerMovement : MonoBehaviour
         return Physics.CheckSphere(groundCheck.position, .1f, ground);
     }
 
-    void ChangeShape(int shape)
+    public void ChangeShape(int shape)
     {
         currentShape = (Shape)shape;
+        activateShape();
     }
 
     public Shape GetShape()
     {
         return currentShape;
+    }
+
+    private void activateShape() {
+        CubeShape.SetActive(currentShape == Shape.Cube);
+        // SphereShape.SetActive(currentShape == Shape.Sphere);
+        CylinderShape.SetActive(currentShape == Shape.Cylinder);
+        // PyramidShape.SetActive(currentShape == Shape.Pyramid);
     }
 }

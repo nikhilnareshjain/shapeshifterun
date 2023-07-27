@@ -20,9 +20,10 @@ public class PlayerLife : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         Shape currentShape = GetComponent<PlayerMovement>().GetShape();
-        if (collision.gameObject.CompareTag("Enemy Body"))
+        if (collision.gameObject.CompareTag("Enemy Body") 
+            || (collision.gameObject.CompareTag("Wood Tag") && currentShape != Shape.Cube))
         {
-            GetComponent<MeshRenderer>().enabled = false;
+            // GetComponent<MeshRenderer>().enabled = false;
             GetComponent<Rigidbody>().isKinematic = true;
             GetComponent<PlayerMovement>().enabled = false;
             Die();

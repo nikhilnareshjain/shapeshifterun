@@ -17,6 +17,11 @@ public class PlatformPrefab : MonoBehaviour
     [Header("Collectible Layer")]
     [SerializeField] GameObject Collectibles;
     // [SerializeField] GameObject CollectibleTransform;
+
+    [SerializeField] GameObject CubeObstacle;
+    [SerializeField] GameObject SphereObstacle;
+    [SerializeField] GameObject CylinderObstacle;
+    [SerializeField] GameObject PyramidObstacle;
     
     [SerializeField] GameObject CoinCollectible;
     [SerializeField] GameObject PowerupCollectible;
@@ -24,7 +29,7 @@ public class PlatformPrefab : MonoBehaviour
 
     // Start is called before the first frame update
     void Awake() {
-        
+        activateObstacle();
     }
 
     public void Init(int indexFloor) {
@@ -58,6 +63,12 @@ public class PlatformPrefab : MonoBehaviour
                 FloorParent.transform.localPosition = newPosVal;
                 break;
         }
+    }
+
+    void activateObstacle() {
+        int obstacleType = Random.Range(0, 2);
+        CubeObstacle.SetActive(obstacleType == 0);
+        CylinderObstacle.SetActive(obstacleType == 1);
     }
 
     // Update is called once per frame

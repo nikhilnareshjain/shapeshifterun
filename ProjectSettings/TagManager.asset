@@ -8,6 +8,9 @@ TagManager:
   - Enemy Head
   - Coin
   - Wood Tag
+  - Cube
+  - Cylinder
+  - Unknown
   layers:
   - Default
   - TransparentFX
