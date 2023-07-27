@@ -2,6 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum Shape {
+        Sphere = 0,
+        Cube = 1,
+        Cylinder = 2,
+        Pyramid = 3
+    }
+
 public class PlayerMovement : MonoBehaviour
 {
     Rigidbody rb;
@@ -14,6 +21,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] LayerMask ground;
 
     [SerializeField] AudioSource jumpSound;
+
+    private Shape currentShape = Shape.Cube;
 
     // Start is called before the first frame update
     void Start()
@@ -53,5 +62,15 @@ public class PlayerMovement : MonoBehaviour
     bool IsGrounded()
     {
         return Physics.CheckSphere(groundCheck.position, .1f, ground);
+    }
+
+    void ChangeShape(int shape)
+    {
+        currentShape = (Shape)shape;
+    }
+
+    public Shape GetShape()
+    {
+        return currentShape;
     }
 }

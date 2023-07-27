@@ -2,11 +2,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class PlatformPrefab : MonoBehaviour
 {
     [Header("Floor Layer")]
-    [SerializeField] GameObject Floor;
+    [SerializeField] GameObject FloorParent;
     // [SerializeField] Transform FloorTransform;
     
     [Header("Enemy Layer")]
@@ -20,31 +21,41 @@ public class PlatformPrefab : MonoBehaviour
     [SerializeField] GameObject CoinCollectible;
     [SerializeField] GameObject PowerupCollectible;
     private FloorType[] floorType = (FloorType[]) Enum.GetValues(typeof(FloorType));
-    private static int indexFloor = 0;
 
     // Start is called before the first frame update
     void Awake() {
-        if (indexFloor == 4) indexFloor = 0;
+        
+    }
+
+    public void Init(int indexFloor) {
         initFloor(floorType[indexFloor]);
-        indexFloor++;
+        initEnemy();
+    }
+
+    void initEnemy() {
+        float enemyShift = Random.Range(-3, 4);
+        Enemy.transform.localPosition = new Vector3(Enemy.transform.localPosition.x + enemyShift, Enemy.transform.localPosition.y, Enemy.transform.localPosition.z);
     }
     
     void initFloor(FloorType floorType) {
         switch (floorType) {
             case FloorType.BASIC :
+            FloorParent.GetComponent<WaypointFollower>().enabled = false;
                 break;
             case FloorType.HMOVING : 
-                Floor.GetComponent<WaypointFollower>().enabled = true;
+                // FloorParent.GetComponent<WaypointFollower>().enabled = true;
                 break;
             case FloorType.LSHIFTED :
-                Vector3 newPos = new Vector3(Floor.transform.position.x - 4f, Floor.transform.position.y,
-                    Floor.transform.position.z);
-                Floor.transform.localPosition = newPos;
+            FloorParent.GetComponent<WaypointFollower>().enabled = false;
+                Vector3 newPos = new Vector3(FloorParent.transform.localPosition.x - 2f, FloorParent.transform.localPosition.y,
+                    FloorParent.transform.localPosition.z);
+                FloorParent.transform.localPosition = newPos;
                 break;
             case FloorType.RSHIFTED :
-                Vector3 newPosVal = new Vector3(Floor.transform.position.x + 4f, Floor.transform.position.y,
-                    Floor.transform.position.z);
-                Floor.transform.localPosition = newPosVal;
+            FloorParent.GetComponent<WaypointFollower>().enabled = false;
+                Vector3 newPosVal = new Vector3(FloorParent.transform.localPosition.x + 2f, FloorParent.transform.localPosition.y,
+                    FloorParent.transform.localPosition.z);
+                FloorParent.transform.localPosition = newPosVal;
                 break;
         }
     }
