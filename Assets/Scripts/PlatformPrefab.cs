@@ -37,5 +37,6 @@ public class PlatformPrefab : MonoBehaviour
         //     Jump();
         // }
     }
+    
 
 }
