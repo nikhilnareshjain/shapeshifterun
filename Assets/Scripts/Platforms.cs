@@ -9,7 +9,7 @@ public class Platforms : MonoBehaviour {
     [Header("Platform Layer")]
     [SerializeField] GameObject[] Platform;
 
-    public int zPos = 7;
+    public int zPos = 0;
     public bool creatingSection = false;
     public int platformNumber;
 
@@ -24,7 +24,7 @@ public class Platforms : MonoBehaviour {
         // platformNumber 
         Instantiate(Platform[0], new Vector3(0,0,zPos), Quaternion.identity);
         zPos += 7;
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(1);
         creatingSection = false;
     }
     
