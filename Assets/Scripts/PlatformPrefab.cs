@@ -13,29 +13,18 @@ public class PlatformPrefab : MonoBehaviour
     // [SerializeField] Transform EnemyTransform;
     
     [Header("Collectible Layer")]
-    [SerializeField] GameObject Collectible;
+    [SerializeField] GameObject Collectibles;
     // [SerializeField] GameObject CollectibleTransform;
     
     [SerializeField] GameObject CoinCollectible;
+    [SerializeField] GameObject PowerupCollectible;
 
     // Start is called before the first frame update
-    void Start()
-    {
-        // rb = GetComponent<Rigidbody>();
+    void Start() {
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        // float horizontalInput = Input.GetAxis("Horizontal");
-        // float verticalInput = Input.GetAxis("Vertical");
-        //
-        // rb.velocity = new Vector3(horizontalInput * movementSpeed, rb.velocity.y, verticalInput * movementSpeed);
-        //
-        // if (Input.GetButtonDown("Jump") && IsGrounded())
-        // {
-        //     Jump();
-        // }
+    void Update() {
     }
     
 

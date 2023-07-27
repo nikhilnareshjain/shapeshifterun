@@ -130,6 +130,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1261675541}
     m_Modifications:
+    - target: {fileID: 1952870171730841765, guid: 77de5e230f1ef41ac8f04787b0427542, type: 3}
+      propertyPath: Collectibles
+      value: 
+      objectReference: {fileID: 1207917698}
     - target: {fileID: 3023588826605970803, guid: 77de5e230f1ef41ac8f04787b0427542, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -324,7 +328,7 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
@@ -622,6 +626,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1225277008627267250, guid: 77de5e230f1ef41ac8f04787b0427542, type: 3}
   m_PrefabInstance: {fileID: 1087616263}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1207917698 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7724136689027931262, guid: 77de5e230f1ef41ac8f04787b0427542, type: 3}
+  m_PrefabInstance: {fileID: 103669882}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1261675540
 GameObject:
   m_ObjectHideFlags: 0
@@ -667,8 +676,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d376060412004abbb3970f25d632efe2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Platform:
-  - {fileID: 103669884}
+  Platform: {fileID: 103669884}
   zPos: 5
   creatingSection: 0
   platformNumber: 0
@@ -858,14 +866,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4007656916922321699, guid: b0ad158b483ae3340bb82859179c6163, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 7.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4007656916922321699, guid: b0ad158b483ae3340bb82859179c6163, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -4.36
-      objectReference: {fileID: 0}
     - target: {fileID: 4007656917043096199, guid: b0ad158b483ae3340bb82859179c6163, type: 3}
       propertyPath: coinsText
       value: 
@@ -876,7 +876,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4007656917043096219, guid: b0ad158b483ae3340bb82859179c6163, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.017
       objectReference: {fileID: 0}
     - target: {fileID: 4007656917043096219, guid: b0ad158b483ae3340bb82859179c6163, type: 3}
       propertyPath: m_LocalPosition.y
