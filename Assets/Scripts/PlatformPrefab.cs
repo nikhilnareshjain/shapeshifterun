@@ -66,9 +66,10 @@ public class PlatformPrefab : MonoBehaviour
     }
 
     void activateObstacle() {
-        int obstacleType = Random.Range(0, 2);
+        int obstacleType = Random.Range(0, 3);
         CubeObstacle.SetActive(obstacleType == 0);
         CylinderObstacle.SetActive(obstacleType == 1);
+        SphereObstacle.SetActive(obstacleType == 2);
     }
 
     // Update is called once per frame

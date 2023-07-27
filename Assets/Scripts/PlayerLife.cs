@@ -27,10 +27,10 @@ public class PlayerLife : MonoBehaviour
             GetComponent<Rigidbody>().isKinematic = true;
             GetComponent<PlayerMovement>().enabled = false;
             Die();
-        } else if (collision.gameObject.CompareTag("Wood Tag") && currentShape == Shape.Cube) {
+        } else if ((collision.gameObject.CompareTag("Wood Tag") && currentShape == Shape.Cube)
+                || (collision.gameObject.CompareTag("Sphere Tag") && currentShape == Shape.Sphere)) {
             Destroy(collision.gameObject);
         }
-
     }
 
     void Die()

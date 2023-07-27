@@ -30,7 +30,7 @@ public class Platforms : MonoBehaviour {
             platform.GetComponent<PlatformPrefab>().Init(Random.Range(0, 4));
             platformQueue.Enqueue(platform);
             platform.transform.SetParent(this.transform);
-            zPos += 14;
+            zPos += 9;
         }
         if (platformQueue.Count >= 5) {
             GameObject platform = platformQueue.Peek();

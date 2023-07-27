@@ -12,9 +12,8 @@ public enum Shape {
 public class PlayerMovement : MonoBehaviour
 {
     Rigidbody rb;
-    [SerializeField] float movementSpeed = 6f;
-    [SerializeField] float verticalMovementSpeed = 3f;
-    [SerializeField] float horizontalMovementSpeed = 6f;
+    float verticalMovementSpeed = 2f;
+    float horizontalMovementSpeed = 3f;
     [SerializeField] float jumpForce = 5f;
 
     [SerializeField] Transform groundCheck;
@@ -47,7 +46,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetButtonDown("Jump") && IsGrounded())
         {
-            Jump();
+            // Jump();
         }
     }
 
@@ -84,7 +83,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void activateShape() {
         CubeShape.SetActive(currentShape == Shape.Cube);
-        // SphereShape.SetActive(currentShape == Shape.Sphere);
+        SphereShape.SetActive(currentShape == Shape.Sphere);
         CylinderShape.SetActive(currentShape == Shape.Cylinder);
         // PyramidShape.SetActive(currentShape == Shape.Pyramid);
     }
