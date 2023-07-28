@@ -27,6 +27,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] GameObject PyramidShape;
 
     private Shape currentShape = Shape.Cylinder;
+    private SwipeInput swipeInput;
+    private Vector3 touchStartPosition;
 
     // Start is called before the first frame update
     void Start()
@@ -34,6 +36,7 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody>();
 
         activateShape();
+        swipeInput = GetComponent<SwipeInput>();
     }
 
     // Update is called once per frame
@@ -41,8 +44,64 @@ public class PlayerMovement : MonoBehaviour
     {
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
+        // SwipeInput.SwipeDirection swipeDirection = swipeInput.GetSwipeDirection();
 
-        rb.velocity = new Vector3(horizontalInput * horizontalMovementSpeed, rb.velocity.y, verticalMovementSpeed);
+        // // Use the swipe direction for your game logic
+        // switch (swipeDirection)
+        // {
+        //     case SwipeInput.SwipeDirection.Right:
+        //         // Handle right swipe
+        //         horizontalInput = 1f;
+        //         break;
+
+        //     case SwipeInput.SwipeDirection.Left:
+        //         // Handle left swipe
+        //         horizontalInput = -1f;
+        //         break;
+
+        //     case SwipeInput.SwipeDirection.Up:
+        //         // Handle up swipe
+        //         break;
+
+        //     case SwipeInput.SwipeDirection.Down:
+        //         // Handle down swipe
+        //         break;
+
+        //     case SwipeInput.SwipeDirection.None:
+        //         // No swipe detected
+        //         break;
+        // }
+      
+      if (Input.touchCount > 0)
+        {
+            // Get the first touch (you can handle multi-touch by looping through Input.touches)
+            Touch touch = Input.GetTouch(0);
+
+            // Check the phase of the touch
+            switch (touch.phase)
+            {
+                case TouchPhase.Began:
+                    // Handle touch start
+                    touchStartPosition = Camera.main.WorldToViewportPoint(touch.position);
+                    break;
+
+                case TouchPhase.Moved:
+                    // Handle touch movement
+                    Vector3 touchEndPosition = Camera.main.WorldToViewportPoint(touch.position);
+                    float xMoved = touchEndPosition.x - touchStartPosition.x;
+                    xMoved = xMoved * 1.2f * (touchStartPosition.x / touch.position.x);
+                    Vector3 newPos = new Vector3(transform.localPosition.x + xMoved, transform.localPosition.y, transform.localPosition.z);
+                    transform.localPosition = newPos;
+                    return;
+
+                case TouchPhase.Ended:
+                case TouchPhase.Canceled:
+                    // Handle touch end or cancellation
+                    break;
+            }
+        }
+
+        rb.velocity = new Vector3(horizontalInput * horizontalMovementSpeed, 0, verticalMovementSpeed);
 
         if (Input.GetButtonDown("Jump") && IsGrounded())
         {
