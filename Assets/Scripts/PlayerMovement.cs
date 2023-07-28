@@ -54,13 +54,14 @@ public class PlayerMovement : MonoBehaviour
     private float attractDuration = 30f;
     private float noCollideDurationDuration = 10f;
     private PowerUp selectedPowerup = PowerUp.BreakObstacle;
+    private Vector3 lastPosition;
 
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-
+        lastPosition = transform.position;
         activateShape();
         swipeInput = GetComponent<SwipeInput>();
     }
@@ -126,6 +127,9 @@ public class PlayerMovement : MonoBehaviour
             if (selectedPowerup == PowerUp.CoinAttract) StartCoinAttract();
             if (selectedPowerup == PowerUp.BreakObstacle) StartBreakObstacle();
         }
+        float distanceTraveledThisFrame = Vector3.Distance(transform.position, lastPosition);
+        GetComponent<DistanceTraveled>().UpdateDistance(distanceTraveledThisFrame);
+        lastPosition = transform.position;
         if (Input.GetButtonDown("Jump") && IsGrounded())
         {
             // Jump();
