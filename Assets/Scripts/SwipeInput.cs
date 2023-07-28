@@ -44,6 +44,15 @@ public class SwipeInput : MonoBehaviour
                         // Calculate the swipe direction
                         Vector2 swipeDirection = swipeEndPos - swipeStartPos;
 
+                        if (swipeDirection.x > 0)
+                        {
+                            return SwipeDirection.Right;
+                        }
+                        else if (swipeDirection.x < 0)
+                        {
+                            return SwipeDirection.Left;
+                        }
+
                         // Normalize the direction to get a consistent magnitude
                         swipeDirection.Normalize();
 

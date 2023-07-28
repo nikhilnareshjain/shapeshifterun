@@ -67,7 +67,6 @@ public class PlayerMovement : MonoBehaviour
         {
             horizontalInput = -1f;
             // Code to handle left arrow key released
-            Debug.Log("Left arrow key released!");
         }
 
         // Check for right arrow key released
@@ -75,7 +74,6 @@ public class PlayerMovement : MonoBehaviour
         {
             horizontalInput = 1f;
             // Code to handle right arrow key released
-            Debug.Log("Right arrow key released!");
         }
 
         SwipeInput.SwipeDirection swipeDirection = swipeInput.GetSwipeDirection();
@@ -115,35 +113,6 @@ public class PlayerMovement : MonoBehaviour
             // this.transform.localPosition = new Vector3(this.transform.localPosition.x - 0.35f, this.transform.localPosition.y, this.transform.localPosition.z);
             DOTween.To(() => this.transform.localPosition, x => this.transform.localPosition = x, new Vector3(this.transform.localPosition.x - 0.35f, this.transform.localPosition.y, this.transform.localPosition.z + verticalMovementSpeed * 0.5f), 0.5f);
         }
-      
-    //   if (Input.touchCount > 0)
-    //     {
-    //         // Get the first touch (you can handle multi-touch by looping through Input.touches)
-    //         Touch touch = Input.GetTouch(0);
-
-    //         // Check the phase of the touch
-    //         switch (touch.phase)
-    //         {
-    //             case TouchPhase.Began:
-    //                 // Handle touch start
-    //                 touchStartPosition = Camera.main.WorldToViewportPoint(touch.position);
-    //                 break;
-
-    //             case TouchPhase.Moved:
-    //                 // Handle touch movement
-    //                 Vector3 touchEndPosition = Camera.main.WorldToViewportPoint(touch.position);
-    //                 float xMoved = touchEndPosition.x - touchStartPosition.x;
-    //                 xMoved = xMoved * 1.2f * (touchStartPosition.x / touch.position.x);
-    //                 Vector3 newPos = new Vector3(transform.localPosition.x + xMoved, transform.localPosition.y, transform.localPosition.z);
-    //                 transform.localPosition = newPos;
-    //                 return;
-
-    //             case TouchPhase.Ended:
-    //             case TouchPhase.Canceled:
-    //                 // Handle touch end or cancellation
-    //                 break;
-    //         }
-    //     }
 
         rb.velocity = new Vector3(0, - 1 * verticalMovementSpeed, verticalMovementSpeed);
         if (!isAttracting)
