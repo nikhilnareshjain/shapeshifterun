@@ -21,7 +21,8 @@ public class PlayerLife : MonoBehaviour
     {
         Shape currentShape = GetComponent<PlayerMovement>().GetShape();
         if (collision.gameObject.CompareTag("Enemy Body") 
-            || (collision.gameObject.CompareTag("Wood Tag") && currentShape != Shape.Cube))
+            || (collision.gameObject.CompareTag("Wood Tag") && currentShape != Shape.Cube)
+            || (collision.gameObject.CompareTag("Sphere Tag") && currentShape != Shape.Sphere))
         {
             // GetComponent<MeshRenderer>().enabled = false;
             GetComponent<Rigidbody>().isKinematic = true;

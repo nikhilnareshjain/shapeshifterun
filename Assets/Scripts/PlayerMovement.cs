@@ -22,6 +22,7 @@ public enum SwipeDirection {
 }
 
 public enum PowerUp {
+    None,
     CoinAttract,
     BreakObstacle
 }
@@ -53,9 +54,9 @@ public class PlayerMovement : MonoBehaviour
     private float attractForce = 4f;
     private float attractDuration = 30f;
     private float noCollideDurationDuration = 10f;
-    private PowerUp selectedPowerup = PowerUp.BreakObstacle;
+ 
     private Vector3 lastPosition;
-
+    private PowerUp selectedPowerup = PowerUp.None;
 
     // Start is called before the first frame update
     void Start()
