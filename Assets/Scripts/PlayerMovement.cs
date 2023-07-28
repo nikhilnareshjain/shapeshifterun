@@ -52,6 +52,8 @@ public class PlayerMovement : MonoBehaviour
     private float attractRadius = 3.5f;
     private float attractForce = 4f;
     private float attractDuration = 30f;
+    private float noCollideDurationDuration = 10f;
+    private PowerUp selectedPowerup = PowerUp.BreakObstacle;
 
 
     // Start is called before the first frame update
@@ -121,7 +123,8 @@ public class PlayerMovement : MonoBehaviour
         rb.velocity = new Vector3(0, - 1 * verticalMovementSpeed, verticalMovementSpeed);
         if (isPowerupOn)
         {
-            StartCoinAttract();
+            if (selectedPowerup == PowerUp.CoinAttract) StartCoinAttract();
+            if (selectedPowerup == PowerUp.BreakObstacle) StartBreakObstacle();
         }
         if (Input.GetButtonDown("Jump") && IsGrounded())
         {
@@ -166,6 +169,30 @@ public class PlayerMovement : MonoBehaviour
     {
         isPowerupOn = false;
         StartCoroutine(CoinAttractCoroutine());
+    }
+    
+    private System.Collections.IEnumerator BreakObstacleCoroutine()
+    {
+        float startTime = Time.time;
+        while (Time.time - startTime < noCollideDurationDuration)
+        {
+            Collider[] nearbyEnemy = Physics.OverlapSphere(transform.position, attractRadius);
+            foreach (Collider coinCollider in nearbyEnemy)
+            {
+                if (coinCollider.gameObject.CompareTag("Wood Tag") || coinCollider.gameObject.CompareTag("Enemy Body") ||
+                    coinCollider.gameObject.CompareTag("Sphere Tag")) {
+                    coinCollider.GetComponent<Collider>().enabled = false;
+                }
+            }
+            yield return null; // Wait for the next frame
+        }
+        
+    }
+
+    private void StartBreakObstacle()
+    {
+        isPowerupOn = false;
+        StartCoroutine(BreakObstacleCoroutine());
     }
     
 
