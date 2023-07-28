@@ -21,6 +21,11 @@ public enum SwipeDirection {
     Right
 }
 
+public enum PowerUp {
+    CoinAttract,
+    BreakObstacle
+}
+
 public class PlayerMovement : MonoBehaviour
 {
     Rigidbody rb;
@@ -47,7 +52,6 @@ public class PlayerMovement : MonoBehaviour
     private float attractRadius = 3.5f;
     private float attractForce = 2f;
     private float attractDuration = 10f;
-    private bool isAttracting = false;
 
 
     // Start is called before the first frame update
@@ -115,7 +119,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         rb.velocity = new Vector3(0, - 1 * verticalMovementSpeed, verticalMovementSpeed);
-        if (!isAttracting)
+        if (isPowerupOn)
         {
             StartCoinAttract();
         }
@@ -160,36 +164,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void StartCoinAttract()
     {
-        isAttracting = true;
+        isPowerupOn = false;
         StartCoroutine(CoinAttractCoroutine());
     }
-
     
-    public void UseAttractorPowerup() {
-        if (isPowerupOn) {
-            float startTime = Time.time;
-            isPowerupOn = false;
-            while (Time.time - startTime < attractDuration)
-            {// do something
-
-                Collider[] nearbyCoins = Physics.OverlapSphere(transform.localPosition, attractRadius);
-
-                foreach (Collider coinCollider in nearbyCoins) {
-                    if (coinCollider.CompareTag("Coin")) {
-                        Transform coinTransform = coinCollider.transform;
-                        Vector3 directionToPlayer = this.transform.position - coinTransform.position;
-                        float distanceToPlayer = directionToPlayer.magnitude;
-
-                        if (distanceToPlayer > 0.1f) // To avoid jitter when the coin is too close to the player
-                        {
-                            float step = attractForce * Time.deltaTime;
-                            coinTransform.position = Vector3.MoveTowards(coinTransform.position, transform.position, step);
-                        }
-                    }
-                }
-            }
-        }
-    }
 
     void Jump()
     {

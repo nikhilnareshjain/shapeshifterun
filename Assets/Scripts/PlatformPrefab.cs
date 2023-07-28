@@ -24,6 +24,7 @@ public class PlatformPrefab : MonoBehaviour
     [SerializeField] GameObject PyramidObstacle;
     
     [SerializeField] GameObject CoinCollectible;
+    [SerializeField] GameObject[] CoinCollectibleType;
     [SerializeField] GameObject PowerupCollectible;
     [SerializeField] GameObject LeftPos;
     [SerializeField] GameObject RightPos;
@@ -38,6 +39,17 @@ public class PlatformPrefab : MonoBehaviour
     public void Init(int indexFloor) {
         initFloor(floorType[indexFloor]);
         initEnemy();
+        initCoinCollectible();
+    }
+
+    private void initCoinCollectible() {
+        int coinType = Random.Range(0, 10);
+        CoinCollectibleType[0].transform.position = new Vector3(LeftPos.transform.position.x,CoinCollectibleType[0].transform.position.y, CoinCollectibleType[0].transform.position.z);
+        CoinCollectibleType[0].SetActive(coinType == 0 || coinType == 3 || coinType == 4 || coinType == 6);
+        CoinCollectibleType[1].transform.position = new Vector3(CenterPos.transform.position.x,CoinCollectibleType[1].transform.position.y, CoinCollectibleType[1].transform.position.z);
+        CoinCollectibleType[1].SetActive(coinType == 1 || coinType == 3 || coinType == 5 || coinType == 6);
+        CoinCollectibleType[2].transform.position = new Vector3(RightPos.transform.position.x,CoinCollectibleType[2].transform.position.y, CoinCollectibleType[2].transform.position.z);
+        CoinCollectibleType[2].SetActive(coinType == 2 || coinType == 4 || coinType == 5 || coinType == 6);
     }
 
     void initEnemy() {
