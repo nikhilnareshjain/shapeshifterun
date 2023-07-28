@@ -50,8 +50,8 @@ public class PlayerMovement : MonoBehaviour
 
     private bool isPowerupOn = true;
     private float attractRadius = 3.5f;
-    private float attractForce = 2f;
-    private float attractDuration = 10f;
+    private float attractForce = 4f;
+    private float attractDuration = 30f;
 
 
     // Start is called before the first frame update
