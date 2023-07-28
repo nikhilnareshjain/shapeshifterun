@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,6 +12,11 @@ public class ItemCollector : MonoBehaviour
 
     [SerializeField] AudioSource collectionSound;
 
+    // private void Start() {
+    //     
+    //     // coins = userInfo.coins;
+    // }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Coin"))
@@ -20,5 +26,9 @@ public class ItemCollector : MonoBehaviour
             coinsText.text = "Coins: " + coins;
             collectionSound.Play();
         }
+    }
+
+    public int getCoins() {
+        return coins;
     }
 }

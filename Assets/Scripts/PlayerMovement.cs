@@ -246,4 +246,13 @@ public class PlayerMovement : MonoBehaviour
         CylinderShape.SetActive(currentShape == Shape.Cylinder);
         // PyramidShape.SetActive(currentShape == Shape.Pyramid);
     }
+
+    public void OnBuyOrRetryButtonClicked() {
+        return;
+    }
+
+    public void OnExitButtonClicked() {
+        return;
+    }
+    
 }
