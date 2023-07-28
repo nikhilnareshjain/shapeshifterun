@@ -25,6 +25,9 @@ public class PlatformPrefab : MonoBehaviour
     
     [SerializeField] GameObject CoinCollectible;
     [SerializeField] GameObject PowerupCollectible;
+    [SerializeField] GameObject LeftPos;
+    [SerializeField] GameObject RightPos;
+    [SerializeField] GameObject CenterPos;
     private FloorType[] floorType = (FloorType[]) Enum.GetValues(typeof(FloorType));
 
     // Start is called before the first frame update
@@ -38,11 +41,22 @@ public class PlatformPrefab : MonoBehaviour
     }
 
     void initEnemy() {
-        float enemyShift = Random.Range(-3, 4);
-        Enemy.transform.localPosition = new Vector3(Enemy.transform.localPosition.x + enemyShift, Enemy.transform.localPosition.y, Enemy.transform.localPosition.z);
+        int enemyPos = Random.Range(0, 3);
+        switch (enemyPos) {
+            case 0 :
+                Enemy.transform.position = LeftPos.transform.position;
+                break;
+            case 1 :
+                Enemy.transform.position = CenterPos.transform.position;
+                break;
+            case 2 :
+                Enemy.transform.position = RightPos.transform.position;
+                break;
+        }
     }
     
     void initFloor(FloorType floorType) {
+        return;
         switch (floorType) {
             case FloorType.BASIC :
             FloorParent.GetComponent<WaypointFollower>().enabled = false;
