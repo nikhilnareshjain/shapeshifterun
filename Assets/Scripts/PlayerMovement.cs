@@ -146,12 +146,55 @@ public class PlayerMovement : MonoBehaviour
     //     }
 
         rb.velocity = new Vector3(0, - 1 * verticalMovementSpeed, verticalMovementSpeed);
-
+        if (!isAttracting)
+        {
+            StartCoinAttract();
+        }
         if (Input.GetButtonDown("Jump") && IsGrounded())
         {
             // Jump();
         }
     }
+    
+    private System.Collections.IEnumerator CoinAttractCoroutine()
+    {
+        float startTime = Time.time;
+
+        while (Time.time - startTime < attractDuration)
+        {
+            Collider[] nearbyCoins = Physics.OverlapSphere(transform.position, attractRadius);
+            foreach (Collider coinCollider in nearbyCoins)
+            {
+                if (coinCollider.CompareTag("Coin"))
+                {
+                    Transform coinTransform = coinCollider.transform;
+                    Vector3 directionToPlayer = transform.position - coinTransform.position;
+                    float distanceToPlayer = directionToPlayer.magnitude;
+
+                    if (distanceToPlayer > 0.1f) // To avoid jitter when the coin is too close to the player
+                    {
+                        float step = attractForce * Time.deltaTime;
+                        coinTransform.position = Vector3.MoveTowards(coinTransform.position, transform.position, step);
+                    }
+                    // else
+                    // {
+                    //     CollectCoin(coinCollider.gameObject);
+                    // }
+                }
+            }
+
+            yield return null; // Wait for the next frame
+        }
+
+        // isAttracting = false;
+    }
+
+    private void StartCoinAttract()
+    {
+        isAttracting = true;
+        StartCoroutine(CoinAttractCoroutine());
+    }
+
     
     public void UseAttractorPowerup() {
         if (isPowerupOn) {
