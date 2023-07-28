@@ -22,6 +22,7 @@ public class PlatformPrefab : MonoBehaviour
     [SerializeField] GameObject SphereObstacle;
     [SerializeField] GameObject CylinderObstacle;
     [SerializeField] GameObject PyramidObstacle;
+    [SerializeField] GameObject RotatingObstacle;
     
     [SerializeField] GameObject CoinCollectible;
     [SerializeField] GameObject[] CoinCollectibleType;
@@ -80,7 +81,6 @@ public class PlatformPrefab : MonoBehaviour
                     FloorParent.transform.localPosition.z);
                 FloorParent.transform.localPosition = newPos;
                 break;
-                break;
             case FloorType.LSHIFTED :
             FloorParent.GetComponent<WaypointFollower>().enabled = false;
                 Vector3 newPos1 = new Vector3(FloorParent.transform.localPosition.x - 2f, FloorParent.transform.localPosition.y,
@@ -101,6 +101,7 @@ public class PlatformPrefab : MonoBehaviour
         CubeObstacle.SetActive(obstacleType == 0);
         CylinderObstacle.SetActive(obstacleType == 1);
         SphereObstacle.SetActive(obstacleType == 2);
+        // RotatingObstacle.SetActive(obstacleType == 3);
     }
 
     // Update is called once per frame
