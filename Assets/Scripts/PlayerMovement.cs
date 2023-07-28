@@ -111,11 +111,11 @@ public class PlayerMovement : MonoBehaviour
         if (horizontalInput > 0) {
             Debug.Log("Current local pos " + this.transform.localPosition.x + ", " + this.transform.localPosition.y + ", " + this.transform.localPosition.z);
             // this.transform.localPosition = new Vector3(this.transform.localPosition.x + 0.35f, this.transform.localPosition.y, this.transform.localPosition.z);
-            DOTween.To(() => this.transform.localPosition, x => this.transform.localPosition = x, new Vector3(this.transform.localPosition.x + 0.35f, this.transform.localPosition.y, this.transform.localPosition.z + verticalMovementSpeed * 0.5f), 0.5f);
+            DOTween.To(() => this.transform.localPosition, x => this.transform.localPosition = x, new Vector3(this.transform.localPosition.x + 0.46f, this.transform.localPosition.y, this.transform.localPosition.z + verticalMovementSpeed * 0.5f), 0.5f);
         } else if (horizontalInput < 0) {
             Debug.Log("Current local pos " + this.transform.localPosition.x + ", " + this.transform.localPosition.y + ", " + this.transform.localPosition.z);
             // this.transform.localPosition = new Vector3(this.transform.localPosition.x - 0.35f, this.transform.localPosition.y, this.transform.localPosition.z);
-            DOTween.To(() => this.transform.localPosition, x => this.transform.localPosition = x, new Vector3(this.transform.localPosition.x - 0.35f, this.transform.localPosition.y, this.transform.localPosition.z + verticalMovementSpeed * 0.5f), 0.5f);
+            DOTween.To(() => this.transform.localPosition, x => this.transform.localPosition = x, new Vector3(this.transform.localPosition.x - 0.46f, this.transform.localPosition.y, this.transform.localPosition.z + verticalMovementSpeed * 0.5f), 0.5f);
         }
 
         rb.velocity = new Vector3(0, - 1 * verticalMovementSpeed, verticalMovementSpeed);
