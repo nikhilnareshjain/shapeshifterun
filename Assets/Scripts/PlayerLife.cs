@@ -42,6 +42,8 @@ public class PlayerLife : MonoBehaviour
             ResultText.text = "Game Over \n\n\n Distance : " + GetComponent<DistanceTraveled>().getDistance().ToString() + "\nCoins :" + GetComponent<ItemCollector>().getCoinText().ToString();
             
             // Die();
+            GetComponent<PlayerMovement>().PlayShapeBreakAnimation();
+
         } else if ((collision.gameObject.CompareTag("Wood Tag") && currentShape == Shape.Cube)
                 || (collision.gameObject.CompareTag("Sphere Tag") && currentShape == Shape.Sphere)) {
             // Destroy(collision.gameObject);
@@ -60,6 +62,11 @@ public class PlayerLife : MonoBehaviour
 
     public void onRetryClick() {
         Die();
+    }
+
+    public void onMainMenuClick() {
+        // SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene().buildIndex);
+        SceneManager.LoadScene(0);
     }
 
     public void onResume() {

@@ -46,6 +46,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] GameObject PyramidShape;
     [SerializeField] GameObject InvinciblePowerup;
     [SerializeField] GameObject MagneticPowerup;
+    [SerializeField] GameObject CylinderBreakAnimations;
+    [SerializeField] GameObject SphereBreakAnimations;
+    [SerializeField] GameObject CubeBreakAnimations;
     private Shape currentShape = Shape.Cylinder;
     private TrackPosition currentTrackPosition = TrackPosition.Middle;
     private SwipeInput swipeInput;
@@ -63,6 +66,9 @@ public class PlayerMovement : MonoBehaviour
     private DistanceTraveled distanceTravelledObj;
     private float currentSpeed;
 
+    [SerializeField] AudioClip GameSound;
+    [SerializeField] AudioSource Source;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -74,6 +80,9 @@ public class PlayerMovement : MonoBehaviour
         isMovingHorizontal = false;
         currentSpeed = verticalMovementSpeed;
         swipeInput = GetComponent<SwipeInput>();
+
+        // Source.clip = GameSound;
+        // Source.Play();
     }
 
     // Update is called once per frame
@@ -273,7 +282,26 @@ public class PlayerMovement : MonoBehaviour
         }
         selectedPowerup = PowerUp.None;
         InvinciblePowerup.SetActive(false);
+    }
+
+    public void PlayShapeBreakAnimation() {
+        CubeShape.SetActive(false);
+        SphereShape.SetActive(false);
+        CylinderShape.SetActive(false);
         
+        CubeBreakAnimations.SetActive(false);
+        SphereBreakAnimations.SetActive(false);
+        CylinderBreakAnimations.SetActive(false);
+        if (currentShape == Shape.Cube) {
+            CubeBreakAnimations.SetActive(true);
+            CubeBreakAnimations.GetComponent<ParticleSystem>().Play();
+        } else if (currentShape == Shape.Sphere) {
+            SphereBreakAnimations.SetActive(true);
+            SphereBreakAnimations.GetComponent<ParticleSystem>().Play();
+        } else if (currentShape == Shape.Cylinder) {
+            CylinderBreakAnimations.SetActive(true);
+            CylinderBreakAnimations.GetComponent<ParticleSystem>().Play();
+        }
     }
 
     private void StartBreakObstacle()
