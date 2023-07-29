@@ -49,6 +49,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] GameObject CylinderBreakAnimations;
     [SerializeField] GameObject SphereBreakAnimations;
     [SerializeField] GameObject CubeBreakAnimations;
+    [SerializeField] GameObject ShapeShiftAnimation;
     private Shape currentShape = Shape.Cylinder;
     private TrackPosition currentTrackPosition = TrackPosition.Middle;
     private SwipeInput swipeInput;
@@ -66,8 +67,7 @@ public class PlayerMovement : MonoBehaviour
     private DistanceTraveled distanceTravelledObj;
     private float currentSpeed;
 
-    [SerializeField] AudioClip GameSound;
-    [SerializeField] AudioSource Source;
+    [SerializeField] AudioSource ShapeShiftSound;
 
     // Start is called before the first frame update
     void Start()
@@ -304,6 +304,10 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    public void PlayShapeShiftAnimation() {
+        ShapeShiftAnimation.GetComponent<ParticleSystem>().Play();
+    }
+
     private void StartBreakObstacle()
     {
         StartCoroutine(BreakObstacleCoroutine());
@@ -340,6 +344,8 @@ public class PlayerMovement : MonoBehaviour
 
     public void ChangeShape(int shape)
     {
+        ShapeShiftSound.Play();
+        PlayShapeShiftAnimation();
         currentShape = (Shape)shape;
         activateShape();
     }

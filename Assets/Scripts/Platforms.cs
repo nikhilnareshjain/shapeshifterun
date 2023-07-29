@@ -25,7 +25,7 @@ public class Platforms : MonoBehaviour {
     IEnumerator GeneratePlatform() {
         platformNumber++;
         PowerUp powerUp = PowerUp.None;
-        if (platformNumber % 5 == 0) {
+        if (platformNumber % 7 == 0) {
             int rand = Random.Range(0, 2);
             powerUp = rand == 0 ? PowerUp.CoinAttract : PowerUp.BreakObstacle;
         }
