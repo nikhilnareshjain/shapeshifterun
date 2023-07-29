@@ -127,17 +127,17 @@ public class PlayerMovement : MonoBehaviour
                     currentTrackPosition = TrackPosition.Middle;
                     // StartCoroutine(MoveToPosition(new Vector3(0f, this.transform.localPosition.y,
                     //     this.transform.localPosition.z)));
-                    DOTween.To(() => this.transform.localPosition, x => this.transform.localPosition = x, new Vector3(0f, this.transform.localPosition.y, this.transform.localPosition.z + currentSpeed * 0.5f), 0.5f);
+                    DOTween.To(() => this.transform.localPosition, x => this.transform.localPosition = x, new Vector3(0f, this.transform.localPosition.y, this.transform.localPosition.z + currentSpeed * 0.2f), 0.2f);
                 } else if (currentTrackPosition == TrackPosition.Middle) {
                     currentTrackPosition = TrackPosition.Right;
                     // StartCoroutine(MoveToPosition(new Vector3(0.46f, this.transform.localPosition.y,
                     //     this.transform.localPosition.z)));
-                    DOTween.To(() => this.transform.localPosition, x => this.transform.localPosition = x, new Vector3(0.46f, this.transform.localPosition.y, this.transform.localPosition.z + currentSpeed * 0.5f), 0.5f);
+                    DOTween.To(() => this.transform.localPosition, x => this.transform.localPosition = x, new Vector3(0.46f, this.transform.localPosition.y, this.transform.localPosition.z + currentSpeed * 0.2f), 0.2f);
                 } else if (currentTrackPosition == TrackPosition.Right) {
                     currentTrackPosition = TrackPosition.Right;
                     // StartCoroutine(MoveToPosition(new Vector3(1f, this.transform.localPosition.y,
                     //     this.transform.localPosition.z)));
-                    DOTween.To(() => this.transform.localPosition, x => this.transform.localPosition = x, new Vector3(1f, this.transform.localPosition.y, this.transform.localPosition.z + currentSpeed * 0.5f), 0.5f);
+                    DOTween.To(() => this.transform.localPosition, x => this.transform.localPosition = x, new Vector3(1f, this.transform.localPosition.y, this.transform.localPosition.z + currentSpeed * 0.2f), 0.2f);
                 }
             } else if (horizontalInput < 0) {
                 if (currentTrackPosition == TrackPosition.Left) {
