@@ -28,6 +28,7 @@ public class PlayerLife : MonoBehaviour
             // GetComponent<MeshRenderer>().enabled = false;
             GetComponent<Rigidbody>().isKinematic = true;
             GetComponent<PlayerMovement>().enabled = false;
+            GetComponent<PlayerMovement>().collision = true;
             Die();
         } else if ((collision.gameObject.CompareTag("Wood Tag") && currentShape == Shape.Cube)
                 || (collision.gameObject.CompareTag("Sphere Tag") && currentShape == Shape.Sphere)) {
@@ -38,7 +39,7 @@ public class PlayerLife : MonoBehaviour
 
     IEnumerator DestroyGameObject(GameObject go) {
         Destroy(go);
-        yield return null;
+        yield break;
     }
 
     void Die()
