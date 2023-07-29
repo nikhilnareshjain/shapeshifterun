@@ -52,15 +52,16 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 touchStartPosition;
 
     private float attractRadius = 3.5f;
-    private float attractForce = 4f;
-    private float attractDuration = 30f;
-    private float noCollideDurationDuration = 10f;
+    private float attractForce = 0.5f;
+    private float attractDuration = 15f;
+    private float noCollideDurationDuration = 15f;
  
     private Vector3 lastPosition;
     private PowerUp selectedPowerup = PowerUp.None;
     public bool collision;
-    private bool isMovingHorizontal = false;
+    private bool isMovingHorizontal;
     private DistanceTraveled distanceTravelledObj;
+    private float currentSpeed;
 
     // Start is called before the first frame update
     void Start()
@@ -69,6 +70,9 @@ public class PlayerMovement : MonoBehaviour
         distanceTravelledObj = GetComponent<DistanceTraveled>();
         lastPosition = transform.position;
         activateShape();
+        collision = false;
+        isMovingHorizontal = false;
+        currentSpeed = verticalMovementSpeed;
         swipeInput = GetComponent<SwipeInput>();
     }
 
@@ -121,36 +125,36 @@ public class PlayerMovement : MonoBehaviour
             if (horizontalInput > 0) {
                 if (currentTrackPosition == TrackPosition.Left) {
                     currentTrackPosition = TrackPosition.Middle;
-                    StartCoroutine(MoveToPosition(new Vector3(0f, this.transform.localPosition.y,
-                        this.transform.localPosition.z)));
-                    // DOTween.To(() => this.transform.localPosition, x => this.transform.localPosition = x, , 0.5f);
+                    // StartCoroutine(MoveToPosition(new Vector3(0f, this.transform.localPosition.y,
+                    //     this.transform.localPosition.z)));
+                    DOTween.To(() => this.transform.localPosition, x => this.transform.localPosition = x, new Vector3(0f, this.transform.localPosition.y, this.transform.localPosition.z + currentSpeed * 0.5f), 0.5f);
                 } else if (currentTrackPosition == TrackPosition.Middle) {
                     currentTrackPosition = TrackPosition.Right;
-                    StartCoroutine(MoveToPosition(new Vector3(0.46f, this.transform.localPosition.y,
-                        this.transform.localPosition.z)));
-                    // DOTween.To(() => this.transform.localPosition, x => this.transform.localPosition = x, new Vector3(0.46f, this.transform.localPosition.y, this.transform.localPosition.z + verticalMovementSpeed * 0.5f), 0.5f);
+                    // StartCoroutine(MoveToPosition(new Vector3(0.46f, this.transform.localPosition.y,
+                    //     this.transform.localPosition.z)));
+                    DOTween.To(() => this.transform.localPosition, x => this.transform.localPosition = x, new Vector3(0.46f, this.transform.localPosition.y, this.transform.localPosition.z + currentSpeed * 0.5f), 0.5f);
                 } else if (currentTrackPosition == TrackPosition.Right) {
                     currentTrackPosition = TrackPosition.Right;
-                    StartCoroutine(MoveToPosition(new Vector3(1f, this.transform.localPosition.y,
-                        this.transform.localPosition.z)));
-                    // DOTween.To(() => this.transform.localPosition, x => this.transform.localPosition = x, new Vector3(1f, this.transform.localPosition.y, this.transform.localPosition.z + verticalMovementSpeed * 0.5f), 0.5f);
+                    // StartCoroutine(MoveToPosition(new Vector3(1f, this.transform.localPosition.y,
+                    //     this.transform.localPosition.z)));
+                    DOTween.To(() => this.transform.localPosition, x => this.transform.localPosition = x, new Vector3(1f, this.transform.localPosition.y, this.transform.localPosition.z + currentSpeed * 0.5f), 0.5f);
                 }
             } else if (horizontalInput < 0) {
                 if (currentTrackPosition == TrackPosition.Left) {
                     currentTrackPosition = TrackPosition.Left;
-                    StartCoroutine(MoveToPosition(new Vector3(-1f, this.transform.localPosition.y,
-                        this.transform.localPosition.z)));
-                    // DOTween.To(() => this.transform.localPosition, x => this.transform.localPosition = x, new Vector3(-1f, this.transform.localPosition.y, this.transform.localPosition.z + verticalMovementSpeed * 0.5f), 0.5f);
+                    // StartCoroutine(MoveToPosition(new Vector3(-1f, this.transform.localPosition.y,
+                    //     this.transform.localPosition.z)));
+                    DOTween.To(() => this.transform.localPosition, x => this.transform.localPosition = x, new Vector3(-1f, this.transform.localPosition.y, this.transform.localPosition.z + currentSpeed * 0.5f), 0.5f);
                 } else if (currentTrackPosition == TrackPosition.Middle) {
                     currentTrackPosition = TrackPosition.Left;
-                    StartCoroutine(MoveToPosition(new Vector3(-0.46f, this.transform.localPosition.y,
-                        this.transform.localPosition.z)));
-                    // DOTween.To(() => this.transform.localPosition, x => this.transform.localPosition = x, new Vector3(-0.46f, this.transform.localPosition.y, this.transform.localPosition.z + verticalMovementSpeed * 0.5f), 0.5f);
+                    // StartCoroutine(MoveToPosition(new Vector3(-0.46f, this.transform.localPosition.y,
+                    //     this.transform.localPosition.z)));
+                    DOTween.To(() => this.transform.localPosition, x => this.transform.localPosition = x, new Vector3(-0.46f, this.transform.localPosition.y, this.transform.localPosition.z + currentSpeed * 0.5f), 0.5f);
                 } else if (currentTrackPosition == TrackPosition.Right) {
                     currentTrackPosition = TrackPosition.Middle;
-                    StartCoroutine(MoveToPosition(new Vector3(0, this.transform.localPosition.y,
-                        this.transform.localPosition.z)));
-                    // DOTween.To(() => this.transform.localPosition, x => this.transform.localPosition = x, new Vector3(0, this.transform.localPosition.y, this.transform.localPosition.z + verticalMovementSpeed * 0.5f), 0.5f);
+                    // StartCoroutine(MoveToPosition(new Vector3(0, this.transform.localPosition.y,
+                    //     this.transform.localPosition.z)));
+                    DOTween.To(() => this.transform.localPosition, x => this.transform.localPosition = x, new Vector3(0, this.transform.localPosition.y, this.transform.localPosition.z + currentSpeed * 0.5f), 0.5f);
                 }
             }
         }
@@ -158,8 +162,6 @@ public class PlayerMovement : MonoBehaviour
         MoveObjectWithDeltaTime();
         if (selectedPowerup == PowerUp.CoinAttract) StartCoinAttract();
         if (selectedPowerup == PowerUp.BreakObstacle) StartBreakObstacle();
-        float distanceTraveledThisFrame = Vector3.Distance(transform.position, lastPosition);
-        GetComponent<DistanceTraveled>().UpdateDistance(distanceTraveledThisFrame);
         lastPosition = transform.position;
         if (Input.GetButtonDown("Jump") && IsGrounded())
         {
@@ -173,12 +175,16 @@ public class PlayerMovement : MonoBehaviour
     
     void MoveObjectWithDeltaTime() {
         // rb.velocity = new Vector3(0, - 1 * verticalMovementSpeed, verticalMovementSpeed);
-        float speedIncreaseFactor =  (distanceTravelledObj.getDistance() / 1000) * 0.05f;
+        float speedIncreaseFactor =  (distanceTravelledObj.getDistance() / 1000) * 0.01f;
         float forwardSpeed = verticalMovementSpeed + speedIncreaseFactor;
         float distanceToMove = forwardSpeed * Time.deltaTime;
         transform.Translate(Vector3.forward * distanceToMove);
+        currentSpeed = forwardSpeed;
+        // verticalMovementSpeed = distanceToMove;
         // transform.Translate(Vector3.down * distanceToMove);
         rb.velocity = new Vector3(0, - 1 * verticalMovementSpeed, 0);
+        float distanceTraveledThisFrame = Vector3.Distance(transform.position, lastPosition);
+        GetComponent<DistanceTraveled>().UpdateDistance(distanceTraveledThisFrame, currentSpeed);
     }
     
     private IEnumerator MoveToPosition(Vector3 targetPosition)
@@ -193,7 +199,11 @@ public class PlayerMovement : MonoBehaviour
 
             // Move the player horizontally along the X-axis
             transform.Translate(Vector3.right * horizontalMovement);
-            if (collision) break;
+            
+            // rb.MovePosition(new Vector3(targetPosition.x, transform.position.y, transform.position.z));
+            // rb.MovePosition(transform.position + Vector3.right * horizontalMovement);
+
+            if (collision || !isMovingHorizontal) break;
             yield return null;
         }
         isMovingHorizontal = false;
