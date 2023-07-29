@@ -13,6 +13,8 @@ TagManager:
   - Unknown
   - Sphere Tag
   - Cyliner Line Tag
+  - Invincible
+  - Magnetic
   layers:
   - Default
   - TransparentFX

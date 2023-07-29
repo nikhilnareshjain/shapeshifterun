@@ -32,7 +32,16 @@ public class PlayerLife : MonoBehaviour
         } else if ((collision.gameObject.CompareTag("Wood Tag") && currentShape == Shape.Cube)
                 || (collision.gameObject.CompareTag("Sphere Tag") && currentShape == Shape.Sphere)) {
             // Destroy(collision.gameObject);
+            collision.gameObject.GetComponent<Obstacle>()?.DestroyWood();
             StartCoroutine(DestroyGameObject(collision.gameObject));
+        }
+
+        if (collision.gameObject.CompareTag("Magnetic")) {
+            Destroy(collision.gameObject);
+            GetComponent<PlayerMovement>().SetPowerup(PowerUp.CoinAttract);
+        } else if (collision.gameObject.CompareTag("Invincible")) {
+            Destroy(collision.gameObject);
+            GetComponent<PlayerMovement>().SetPowerup(PowerUp.BreakObstacle);
         }
     }
 

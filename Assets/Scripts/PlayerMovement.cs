@@ -43,13 +43,13 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] GameObject SphereShape;
     [SerializeField] GameObject CylinderShape;
     [SerializeField] GameObject PyramidShape;
-
+    [SerializeField] GameObject InvinciblePowerup;
+    [SerializeField] GameObject MagneticPowerup;
     private Shape currentShape = Shape.Cylinder;
     private TrackPosition currentTrackPosition = TrackPosition.Middle;
     private SwipeInput swipeInput;
     private Vector3 touchStartPosition;
 
-    private bool isPowerupOn = true;
     private float attractRadius = 3.5f;
     private float attractForce = 4f;
     private float attractDuration = 30f;
@@ -137,11 +137,8 @@ public class PlayerMovement : MonoBehaviour
         }
 
         MoveObjectWithDeltaTime();
-        if (isPowerupOn)
-        {
-            if (selectedPowerup == PowerUp.CoinAttract) StartCoinAttract();
-            if (selectedPowerup == PowerUp.BreakObstacle) StartBreakObstacle();
-        }
+        if (selectedPowerup == PowerUp.CoinAttract) StartCoinAttract();
+        if (selectedPowerup == PowerUp.BreakObstacle) StartBreakObstacle();
         float distanceTraveledThisFrame = Vector3.Distance(transform.position, lastPosition);
         GetComponent<DistanceTraveled>().UpdateDistance(distanceTraveledThisFrame);
         lastPosition = transform.position;
@@ -149,6 +146,10 @@ public class PlayerMovement : MonoBehaviour
         {
             // Jump();
         }
+    }
+
+    public void SetPowerup(PowerUp powerUp) {
+       selectedPowerup = powerUp;
     }
     
     void MoveObjectWithDeltaTime() {
@@ -162,6 +163,8 @@ public class PlayerMovement : MonoBehaviour
     private System.Collections.IEnumerator CoinAttractCoroutine()
     {
         float startTime = Time.time;
+        InvinciblePowerup.SetActive(false);
+        MagneticPowerup.SetActive(true);
 
         while (Time.time - startTime < attractDuration)
         {
@@ -188,18 +191,21 @@ public class PlayerMovement : MonoBehaviour
 
             yield return null; // Wait for the next frame
         }
+        selectedPowerup = PowerUp.None;
+        MagneticPowerup.SetActive(false);
 
         // isAttracting = false;
     }
 
     private void StartCoinAttract()
     {
-        isPowerupOn = false;
         StartCoroutine(CoinAttractCoroutine());
     }
     
     private System.Collections.IEnumerator BreakObstacleCoroutine()
     {
+        MagneticPowerup.SetActive(false);
+        InvinciblePowerup.SetActive(true);
         float startTime = Time.time;
         while (Time.time - startTime < noCollideDurationDuration)
         {
@@ -213,12 +219,13 @@ public class PlayerMovement : MonoBehaviour
             }
             yield return null; // Wait for the next frame
         }
+        selectedPowerup = PowerUp.None;
+        InvinciblePowerup.SetActive(false);
         
     }
 
     private void StartBreakObstacle()
     {
-        isPowerupOn = false;
         StartCoroutine(BreakObstacleCoroutine());
     }
     

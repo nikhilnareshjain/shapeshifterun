@@ -30,6 +30,9 @@ public class PlatformPrefab : MonoBehaviour
     [SerializeField] GameObject LeftPos;
     [SerializeField] GameObject RightPos;
     [SerializeField] GameObject CenterPos;
+    [SerializeField] GameObject MagneticPowerup;
+    [SerializeField] GameObject UnbreakablePowerup;
+    [SerializeField] GameObject[] Positions;
     private FloorType[] floorType = (FloorType[]) Enum.GetValues(typeof(FloorType));
 
     // Start is called before the first frame update
@@ -37,10 +40,23 @@ public class PlatformPrefab : MonoBehaviour
         activateObstacle();
     }
 
-    public void Init(int indexFloor) {
+    public void Init(int indexFloor, PowerUp powerUp = PowerUp.None) {
         initFloor(floorType[indexFloor]);
         initEnemy();
         initCoinCollectible();
+        initPowerups(powerUp);
+    }
+
+    void initPowerups(PowerUp powerUp) { 
+        MagneticPowerup.SetActive(false);
+        UnbreakablePowerup.SetActive(false);
+        if (powerUp == PowerUp.None) {
+            return;
+        }
+        int powerupPos = Random.Range(0, Positions.Length);
+        GameObject PU = powerUp == PowerUp.CoinAttract ? MagneticPowerup : UnbreakablePowerup;
+        PU.SetActive(true);
+        PU.transform.position = Positions[powerupPos].transform.position;
     }
 
     private void initCoinCollectible() {

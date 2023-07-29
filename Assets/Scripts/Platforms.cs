@@ -12,7 +12,7 @@ public class Platforms : MonoBehaviour {
 
     public int zPos = 0;
     public bool creatingSection = false;
-    public int platformNumber;
+    public int platformNumber = 0;
     private Queue<GameObject> platformQueue = new Queue<GameObject>();
 
     private void Update() {
@@ -23,11 +23,16 @@ public class Platforms : MonoBehaviour {
     }
 
     IEnumerator GeneratePlatform() {
-        // platformNumber 
+        platformNumber++;
+        PowerUp powerUp = PowerUp.None;
+        if (platformNumber % 5 == 0) {
+            int rand = Random.Range(0, 2);
+            powerUp = rand == 0 ? PowerUp.CoinAttract : PowerUp.BreakObstacle;
+        }
         Vector3 cameraPos = Camera.main.transform.position;
         if (platformQueue.Count < 15 ) {
             GameObject platform = Instantiate(Platform, new Vector3(0,0,zPos), Quaternion.identity);
-            platform.GetComponent<PlatformPrefab>().Init(Random.Range(0, 4));
+            platform.GetComponent<PlatformPrefab>().Init(Random.Range(0, 4), powerUp);
             platformQueue.Enqueue(platform);
             platform.transform.SetParent(this.transform);
             zPos += 9;
