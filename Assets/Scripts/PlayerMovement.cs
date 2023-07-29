@@ -236,6 +236,8 @@ public class PlayerMovement : MonoBehaviour
                     //     CollectCoin(coinCollider.gameObject);
                     // }
                 }
+
+                if (selectedPowerup == PowerUp.BreakObstacle || selectedPowerup == PowerUp.None) break;
             }
 
             yield return null; // Wait for the next frame
@@ -266,6 +268,7 @@ public class PlayerMovement : MonoBehaviour
                     coinCollider.GetComponent<Collider>().enabled = false;
                 }
             }
+            if (selectedPowerup == PowerUp.CoinAttract || selectedPowerup == PowerUp.None) break;
             yield return null; // Wait for the next frame
         }
         selectedPowerup = PowerUp.None;
