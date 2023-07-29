@@ -21,4 +21,8 @@ public class ItemCollector : MonoBehaviour
             collectionSound.Play();
         }
     }
+
+    public int getCoinText() {
+        return coins;
+    }
 }
