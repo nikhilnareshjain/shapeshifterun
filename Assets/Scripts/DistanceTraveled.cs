@@ -15,7 +15,7 @@ public class DistanceTraveled : MonoBehaviour
         // dist += Mathf.RoundToInt(distanceTraveledThisFrame * 1000) / 1000;
         Debug.Log("NJ: " + distanceTraveledThisFrame * 1000);
         dist += Mathf.RoundToInt(distanceTraveledThisFrame * 1000);
-        distanceTraveled.text = "D:" + dist / 100 + " S:" + speed;
+        distanceTraveled.text = "D:" + dist / 100;
         // Update the lastPosition to the current position for the next frame
     }
 
