@@ -23,7 +23,7 @@ public class PlayerLife : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy Body") 
             || (collision.gameObject.CompareTag("Wood Tag") && currentShape != Shape.Cube)
             || (collision.gameObject.CompareTag("Sphere Tag") && currentShape != Shape.Sphere)
-            || (collision.gameObject.CompareTag("Cylinder Line Tag") && currentShape != Shape.Cylinder))
+            || (collision.gameObject.CompareTag("Cyliner Line Tag") && currentShape != Shape.Cylinder))
         {
             // GetComponent<MeshRenderer>().enabled = false;
             GetComponent<Rigidbody>().isKinematic = true;

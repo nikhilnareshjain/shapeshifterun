@@ -18,4 +18,8 @@ public class DistanceTraveled : MonoBehaviour
         distanceTraveled.text = "Dist:" + dist / 100;
         // Update the lastPosition to the current position for the next frame
     }
+
+    public int getDistance() {
+        return dist;
+    }
 }

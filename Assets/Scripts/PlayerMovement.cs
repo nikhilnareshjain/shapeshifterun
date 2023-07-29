@@ -60,11 +60,13 @@ public class PlayerMovement : MonoBehaviour
     private PowerUp selectedPowerup = PowerUp.None;
     public bool collision;
     private bool isMovingHorizontal = false;
+    private DistanceTraveled distanceTravelledObj;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        distanceTravelledObj = GetComponent<DistanceTraveled>();
         lastPosition = transform.position;
         activateShape();
         swipeInput = GetComponent<SwipeInput>();
@@ -171,7 +173,9 @@ public class PlayerMovement : MonoBehaviour
     
     void MoveObjectWithDeltaTime() {
         // rb.velocity = new Vector3(0, - 1 * verticalMovementSpeed, verticalMovementSpeed);
-        float distanceToMove = verticalMovementSpeed * Time.deltaTime;
+        float speedIncreaseFactor =  (distanceTravelledObj.getDistance() / 1000) * 0.05f;
+        float forwardSpeed = verticalMovementSpeed + speedIncreaseFactor;
+        float distanceToMove = forwardSpeed * Time.deltaTime;
         transform.Translate(Vector3.forward * distanceToMove);
         // transform.Translate(Vector3.down * distanceToMove);
         rb.velocity = new Vector3(0, - 1 * verticalMovementSpeed, 0);
