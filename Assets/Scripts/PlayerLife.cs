@@ -22,7 +22,8 @@ public class PlayerLife : MonoBehaviour
         Shape currentShape = GetComponent<PlayerMovement>().GetShape();
         if (collision.gameObject.CompareTag("Enemy Body") 
             || (collision.gameObject.CompareTag("Wood Tag") && currentShape != Shape.Cube)
-            || (collision.gameObject.CompareTag("Sphere Tag") && currentShape != Shape.Sphere))
+            || (collision.gameObject.CompareTag("Sphere Tag") && currentShape != Shape.Sphere)
+            || (collision.gameObject.CompareTag("Cylinder Line Tag") && currentShape != Shape.Cylinder))
         {
             // GetComponent<MeshRenderer>().enabled = false;
             GetComponent<Rigidbody>().isKinematic = true;
@@ -30,8 +31,14 @@ public class PlayerLife : MonoBehaviour
             Die();
         } else if ((collision.gameObject.CompareTag("Wood Tag") && currentShape == Shape.Cube)
                 || (collision.gameObject.CompareTag("Sphere Tag") && currentShape == Shape.Sphere)) {
-            Destroy(collision.gameObject);
+            // Destroy(collision.gameObject);
+            StartCoroutine(DestroyGameObject(collision.gameObject));
         }
+    }
+
+    IEnumerator DestroyGameObject(GameObject go) {
+        Destroy(go);
+        yield return null;
     }
 
     void Die()

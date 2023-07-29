@@ -12,6 +12,7 @@ TagManager:
   - Cylinder
   - Unknown
   - Sphere Tag
+  - Cyliner Line Tag
   layers:
   - Default
   - TransparentFX

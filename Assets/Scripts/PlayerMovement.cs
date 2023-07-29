@@ -113,16 +113,30 @@ public class PlayerMovement : MonoBehaviour
         }
 
         if (horizontalInput > 0) {
-            Debug.Log("Current local pos " + this.transform.localPosition.x + ", " + this.transform.localPosition.y + ", " + this.transform.localPosition.z);
-            // this.transform.localPosition = new Vector3(this.transform.localPosition.x + 0.35f, this.transform.localPosition.y, this.transform.localPosition.z);
-            DOTween.To(() => this.transform.localPosition, x => this.transform.localPosition = x, new Vector3(this.transform.localPosition.x + 0.46f, this.transform.localPosition.y, this.transform.localPosition.z + verticalMovementSpeed * 0.5f), 0.5f);
+            if (currentTrackPosition == TrackPosition.Left) {
+                currentTrackPosition = TrackPosition.Middle;
+                DOTween.To(() => this.transform.localPosition, x => this.transform.localPosition = x, new Vector3(0, this.transform.localPosition.y, this.transform.localPosition.z + verticalMovementSpeed * 0.5f), 0.5f);
+            } else if (currentTrackPosition == TrackPosition.Middle) {
+                currentTrackPosition = TrackPosition.Right;
+                DOTween.To(() => this.transform.localPosition, x => this.transform.localPosition = x, new Vector3(0.46f, this.transform.localPosition.y, this.transform.localPosition.z + verticalMovementSpeed * 0.5f), 0.5f);
+            } else if (currentTrackPosition == TrackPosition.Right) {
+                currentTrackPosition = TrackPosition.Right;
+                DOTween.To(() => this.transform.localPosition, x => this.transform.localPosition = x, new Vector3(1f, this.transform.localPosition.y, this.transform.localPosition.z + verticalMovementSpeed * 0.5f), 0.5f);
+            }
         } else if (horizontalInput < 0) {
-            Debug.Log("Current local pos " + this.transform.localPosition.x + ", " + this.transform.localPosition.y + ", " + this.transform.localPosition.z);
-            // this.transform.localPosition = new Vector3(this.transform.localPosition.x - 0.35f, this.transform.localPosition.y, this.transform.localPosition.z);
-            DOTween.To(() => this.transform.localPosition, x => this.transform.localPosition = x, new Vector3(this.transform.localPosition.x - 0.46f, this.transform.localPosition.y, this.transform.localPosition.z + verticalMovementSpeed * 0.5f), 0.5f);
+            if (currentTrackPosition == TrackPosition.Left) {
+                currentTrackPosition = TrackPosition.Left;
+                DOTween.To(() => this.transform.localPosition, x => this.transform.localPosition = x, new Vector3(-1f, this.transform.localPosition.y, this.transform.localPosition.z + verticalMovementSpeed * 0.5f), 0.5f);
+            } else if (currentTrackPosition == TrackPosition.Middle) {
+                currentTrackPosition = TrackPosition.Left;
+                DOTween.To(() => this.transform.localPosition, x => this.transform.localPosition = x, new Vector3(-0.46f, this.transform.localPosition.y, this.transform.localPosition.z + verticalMovementSpeed * 0.5f), 0.5f);
+            } else if (currentTrackPosition == TrackPosition.Right) {
+                currentTrackPosition = TrackPosition.Middle;
+                DOTween.To(() => this.transform.localPosition, x => this.transform.localPosition = x, new Vector3(0, this.transform.localPosition.y, this.transform.localPosition.z + verticalMovementSpeed * 0.5f), 0.5f);
+            }
         }
 
-        rb.velocity = new Vector3(0, - 1 * verticalMovementSpeed, verticalMovementSpeed);
+        MoveObjectWithDeltaTime();
         if (isPowerupOn)
         {
             if (selectedPowerup == PowerUp.CoinAttract) StartCoinAttract();
@@ -137,6 +151,14 @@ public class PlayerMovement : MonoBehaviour
         }
     }
     
+    void MoveObjectWithDeltaTime() {
+        // rb.velocity = new Vector3(0, - 1 * verticalMovementSpeed, verticalMovementSpeed);
+        float distanceToMove = verticalMovementSpeed * Time.deltaTime;
+        transform.Translate(Vector3.forward * distanceToMove);
+        // transform.Translate(Vector3.down * distanceToMove);
+        rb.velocity = new Vector3(0, - 1 * verticalMovementSpeed, 0);
+    }
+
     private System.Collections.IEnumerator CoinAttractCoroutine()
     {
         float startTime = Time.time;
